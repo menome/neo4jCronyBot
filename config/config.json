@@ -1,0 +1,20 @@
+{
+  "port": 3015,
+  "neo4j": {
+    "enable": true,
+    "url": "bolt://localhost",
+    "user": "neo4j",
+    "pass": "graphPaper!"
+  },
+  "tasks": [
+    {
+      "name": "Title Case Converter",
+      "desc": "Makes sure all Name properties on Cards begin with an uppercase letter.",
+      "cronTime": "* * * * *",
+      "query": "MATCH (c:Card) WHERE c.Name =~ $nameregex WITH c, left(c.Name, 1) as firstLetter, right(c.Name, length(c.Name)-1) as rest SET c.Name = (toUpper(firstLetter) + rest) RETURN c",
+      "queryParams": {
+        "nameregex": "^[a-z]+"
+      }
+    }
+  ]
+}
