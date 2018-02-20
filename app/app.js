@@ -25,7 +25,7 @@ bot.registerEndpoint({
   "method": "GET",
   "desc": "Gets a list of configured jobs."
 }, function(req,res) {
-  var taskDef = config.get("tasks");
+  var taskDef = scheduler.getTasks()
 
   res.send(
     bot.responseWrapper({

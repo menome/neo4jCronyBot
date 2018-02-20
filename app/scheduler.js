@@ -9,11 +9,14 @@ var config = require('./config');
 var cron = require('cron');
 
 // Keep our running jobs in here.
-var jobs = [];
+var _jobs = [];
+var _tasks = [];
 
+// Schedule our tasks to run.
 module.exports.schedule = function(tasks) {
+  _tasks = tasks;
   tasks.forEach((task, idx) => {
-    jobs[idx] = new cron.CronJob({
+    _jobs[idx] = new cron.CronJob({
       cronTime: task.cronTime,
       onTick: function() {
         bot.logger.info("Running Job:", task.name);
@@ -31,6 +34,14 @@ module.exports.schedule = function(tasks) {
   })
 }
 
+// Get a list of our running tasks.
 module.exports.getTasks = function() {
-  return jobs;
+  var retVal = [];
+
+  _jobs.forEach((job,idx) => {
+    if(!job || !job.running) return;
+    retVal.push(_tasks[idx])
+  })
+
+  return retVal;
 }
