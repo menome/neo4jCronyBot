@@ -15,6 +15,15 @@
       "queryParams": {
         "nameregex": "^[a-z]+"
       }
+    },
+    {
+      "name": "Test Query",
+      "desc": "ASDF",
+      "cronTime": "* * * * *",
+      "queryFile": "testq.cql",
+      "queryParams": {
+        "nameregex": "^[a-z]+"
+      }
     }
   ]
 }

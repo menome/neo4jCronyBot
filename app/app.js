@@ -4,41 +4,39 @@
  * A microservice that runs cypher queries periodically.
  */
 "use strict";
-var bot = require('@menome/botframework')
-var config = require('./config');
-var scheduler = require('./scheduler');
+var Bot = require('@menome/botframework')
+var configSchema = require('./config');
+var config = require('../config/config.json');
+var Scheduler = require('./scheduler');
 
-// We only need to do this once. Bot is a singleton.
-bot.configure({
-  name: "Neo4j Crony Bot",
-  desc: "Runs cypher queries on a Cron-like schedule.",
-  logging: config.get('logging'),
-  port: config.get('port'),
-  neo4j: config.get('neo4j')
+var paths = { }
+
+// Loader. So we don't have to individually require each file.
+var normalizedPath = require("path").join(__dirname, "controllers");
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  paths = Object.assign(paths,require("./controllers/" + file).swaggerDef);
 });
 
-// Let people see what jobs are scheduled.
-// TODO: Choke this. Only show what queries are actually being executed and when.
-bot.registerEndpoint({
-  "name": "Get Jobs",
-  "path": "/jobs",
-  "method": "GET",
-  "desc": "Gets a list of configured jobs."
-}, function(req,res) {
-  var taskDef = scheduler.getTasks()
-
-  res.send(
-    bot.responseWrapper({
-      status: "success",
-      message: "Getting List of Jobs",
-      data: taskDef
-    })
-  )
-})
+var bot = new Bot({
+  config: {
+    name: "Neo4j Crony Bot",
+    desc: "Runs cypher queries on a Cron-like schedule.",
+    ...config
+  }, 
+  configSchema
+});
 
 // Start Cron
-scheduler.schedule(config.get("tasks"));
+var sched = new Scheduler(bot);
+sched.schedule(bot.config.get("tasks"));
 
-// Start the bot.
+// Let our middleware use these.
+bot.web.use((req,res,next) => {
+  req.scheduler = sched;
+  next();
+});
+
+bot.registerPaths(paths,__dirname+"/controllers");
+
 bot.start();
 bot.changeState({state: "idle"})
