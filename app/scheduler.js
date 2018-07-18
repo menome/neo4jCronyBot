@@ -26,7 +26,7 @@ module.exports = function(bot) {
         paramList.push(task.queryParams);
       }
 
-      console.log(queryList, paramList)
+      bot.logger.info("Running queries:", queryList, paramList);
 
       // Run them all in the same session.
       return bot.neo4j.batchQuery(queryList,paramList);
@@ -37,6 +37,7 @@ module.exports = function(bot) {
 
   // Schedule our tasks to run.
   this.schedule = function(tasks) {
+    bot.logger.info("Setting up task schedule.");
     _tasks = tasks;
     tasks.forEach((task, idx) => {
       _jobs[idx] = new cron.CronJob({
@@ -54,6 +55,7 @@ module.exports = function(bot) {
         timeZone: task.timeZone,
       })
     })
+    bot.logger.info("Scheduled all tasks.");
   }
 
   // Get a list of our running tasks.
