@@ -14,8 +14,14 @@ module.exports = function(bot) {
 
   function runTask(task) {
     if(task.queryFile) {
-      var taskQueries = decypher("./config/queries/"+task.queryFile);
-    
+      var taskQueries;
+      try {
+        taskQueries = decypher("./config/queries/"+task.queryFile);
+      }
+      catch(err) {
+        return Promise.reject(err);
+      }
+      
       var queryList = [];
       var paramList = [];
 
@@ -48,7 +54,7 @@ module.exports = function(bot) {
             bot.logger.info("Job Finished:", task.name);
           }).catch((err) => {
             bot.logger.error("Job Failed:", task.name);
-            bot.logger.error("Error:", err);
+            bot.logger.error(err);
           })
         },
         start: !task.disable,
