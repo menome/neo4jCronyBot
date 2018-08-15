@@ -9,11 +9,12 @@ var decypher = require('decypher/loader');
 
 module.exports = function(bot) {
   // Keep our running jobs in here.
+  var runningJobs=0;
   var _jobs = [];
   var _tasks = [];
 
   function runTask(task) {
-    bot.changeState({state: "Running task"})
+    bot.changeState({state: "Running jobs:" + (runningJobs +=1)})
     if(task.queryFile) {
       var taskQueries;
       try {
@@ -52,10 +53,10 @@ module.exports = function(bot) {
         onTick: function() {
           bot.logger.info("Running Job:", task.name);
           return runTask(task).then((result) => {
-            bot.changeState({state: "idle"})
+            bot.changeState({state: "Running jobs:" + (runningJobs -=1)})
             bot.logger.info("Job Finished:", task.name);
           }).catch((err) => {
-            bot.changeState({state: "idle"})
+            bot.changeState({state: "Running jobs:" + (runningJobs -=1)})
             bot.logger.error("Job Failed:", task.name);
             bot.logger.error(err);
           })
