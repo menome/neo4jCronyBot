@@ -13,6 +13,7 @@ module.exports = function(bot) {
   var _tasks = [];
 
   function runTask(task) {
+    bot.changeState({state: "Running task"})
     if(task.queryFile) {
       var taskQueries;
       try {
@@ -51,8 +52,10 @@ module.exports = function(bot) {
         onTick: function() {
           bot.logger.info("Running Job:", task.name);
           return runTask(task).then((result) => {
+            bot.changeState({state: "idle"})
             bot.logger.info("Job Finished:", task.name);
           }).catch((err) => {
+            bot.changeState({state: "idle"})
             bot.logger.error("Job Failed:", task.name);
             bot.logger.error(err);
           })
