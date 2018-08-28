@@ -6,6 +6,7 @@
 "use strict";
 var cron = require('cron');
 var decypher = require('decypher/loader');
+var logger = require('./logger')
 
 module.exports = function(bot) {
   // Keep our running jobs in here.
@@ -50,8 +51,14 @@ module.exports = function(bot) {
         cronTime: task.cronTime,
         onTick: function() {
           bot.logger.info("Running Job:", task.name);
-          return runTask(task).then((result) => {
+          return runTask(task).then((results) => {
             bot.logger.info("Job Finished:", task.name);
+            logger.log({
+              level: "verbose", 
+              message: "Finished", 
+              taskname: task.name, 
+              results
+            });
           }).catch((err) => {
             bot.logger.error("Job Failed:", task.name);
             bot.logger.error(err);

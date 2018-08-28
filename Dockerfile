@@ -7,7 +7,9 @@ ENV PORT 80
 
 # Commands will run in this directory
 RUN mkdir /srv/app
+RUN mkdir /srv/app/logs
 WORKDIR /srv/app
+VOLUME ["/srv/app/logs", "/srv/app/config"]
 
 # Add build file
 COPY ./package.json package.json
