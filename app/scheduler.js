@@ -10,10 +10,12 @@ var logger = require('./logger')
 
 module.exports = function(bot) {
   // Keep our running jobs in here.
+  var runningJobs=0;
   var _jobs = [];
   var _tasks = [];
 
   function runTask(task) {
+    bot.changeState({state: "working"})
     if(task.queryFile) {
       var taskQueries;
       try {
@@ -52,6 +54,7 @@ module.exports = function(bot) {
         onTick: function() {
           bot.logger.info("Running Job:", task.name);
           return runTask(task).then((results) => {
+            bot.changeState({state: "idle"})
             bot.logger.info("Job Finished:", task.name);
             logger.log({
               level: "verbose", 
@@ -60,6 +63,7 @@ module.exports = function(bot) {
               results
             });
           }).catch((err) => {
+            bot.changeState({state: "idle"})
             bot.logger.error("Job Failed:", task.name);
             bot.logger.error(err);
           })
