@@ -34,8 +34,11 @@ module.exports = function(bot) {
         queryList.push(taskQueries[keys[i]]);
         paramList.push(task.queryParams);
       }
-
-      bot.logger.info("Running queries:", queryList, paramList);
+      if(paramList){
+        bot.logger.info("Running queries:", queryList, paramList);
+      }else{
+        bot.logger.info("Running Queries:",queryList);
+      }
 
       // Run them all in the same session.
       return bot.neo4j.batchQuery(queryList,paramList);
