@@ -1,9 +1,9 @@
 {
-  "name": "datarefinery",
+  "name": "cronybot",
   "private": true,
   "version": "1.1.1",
-  "description": "Turns specifically formatted RMQ messages into neo4j graph updates",
-  "repository": "https://github.com/menome",
+  "description": "A microservice that runs cypher queries periodically.",
+  "repository": "https://github.com/menome/neo4jCronyBot",
   "license": "Commercial",
   "dependencies": {
     "@menome/botframework": "^2.1.7",
