@@ -1,7 +1,7 @@
 {
   "name": "cronybot",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A microservice that runs cypher queries periodically.",
   "repository": "https://github.com/menome/neo4jCronyBot",
   "license": "Commercial",

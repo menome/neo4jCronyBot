@@ -1,10 +1,9 @@
 {
   "port": 3015,
   "neo4j": {
-    "enable": true,
     "url": "bolt://localhost",
     "user": "neo4j",
-    "pass": "graphPaper!"
+    "pass": "CodaGlenBaronyMonk"
   },
   "tasks": [
     {
