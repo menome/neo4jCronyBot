@@ -1,7 +1,7 @@
 {
   "port": 3015,
   "neo4j": {
-    "url": "bolt://localhost",
+    "url": "bolt://localhost:10002",
     "user": "neo4j",
     "pass": "CodaGlenBaronyMonk"
   },
