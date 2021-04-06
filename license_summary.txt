@@ -1,0 +1,21 @@
+├─ MIT: 484
+├─ ISC: 41
+├─ MIT*: 14
+├─ BSD-3-Clause: 9
+├─ Apache-2.0: 8
+├─ BSD-2-Clause: 4
+├─ Public Domain: 2
+├─ Custom: http://i.imgur.com/goJdO.png: 1
+├─ (MIT OR Apache-2.0): 1
+├─ UNLICENSED: 1
+├─ Custom: https://github.com/menome/harvesterTemplate: 1
+├─ Custom: http://nodejs.org/api/streams.html: 1
+├─ AFLv2.1,BSD: 1
+├─ Unlicense: 1
+├─ (WTFPL OR MIT): 1
+├─ UNKNOWN: 1
+├─ (BSD-2-Clause OR MIT OR Apache-2.0): 1
+├─ Apache*: 1
+├─ WTFPL: 1
+└─ Custom: https://github.com/douglascrockford/JSON-js: 1
+

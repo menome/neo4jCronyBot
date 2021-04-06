@@ -1,19 +1,19 @@
 {
   "name": "cronybot",
   "private": true,
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A microservice that runs cypher queries periodically.",
   "repository": "https://github.com/menome/neo4jCronyBot",
   "license": "Commercial",
   "dependencies": {
-    "@menome/botframework": "^2.3.0",
+    "@menome/botframework": "^3.1.0",
     "cron": "^1.3.0",
     "ajv": "^5.2.3",
     "convict": "^4.3.2",
     "decypher": "^0.13.0",
     "express": "^4.16.2",
     "forever": "^0.15.3",
-    "neo4j-driver": "^1.7.2",
+    "neo4j-driver": "^4.0.1",
     "request": "^2.83.0",
     "uuid": "^3.3.2",
     "winston": "^3.0.0"
